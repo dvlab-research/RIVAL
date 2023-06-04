@@ -1,4 +1,4 @@
-# RIVAL
+# <img src="assets/favicon.png" width="5%"> RIVAL
 Real-World Image Variation by Aligning Diffusion Inversion Chain
 [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ] 
 ## Applications
