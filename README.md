@@ -3,7 +3,7 @@ Real-World Image Variation by Aligning Diffusion Inversion Chain
 [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
 
 ## Project MileStones (currently strictly follow the timeline here)
-- [ ] [20231028] Code release for the image variations and text-to-image
+- [x] [20231028] Code release for the image variations and text-to-image
 - [ ] [20231030] Code release for ControlNet inference, image editing
 - [ ] [20231031] Code release for other applications (like +dreambooth), user manual
 
