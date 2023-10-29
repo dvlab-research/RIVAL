@@ -18,9 +18,9 @@ from icecream import ic
 parser = argparse.ArgumentParser()
 # load the config.
 parser.add_argument("--inf_config", type=str, default="configs/rival_variation.json")
-parser.add_argument("--img_config", type=str, default="assets/images/configs.json")
+parser.add_argument("--img_config", type=str, default="assets/images/configs_variation.json")
 parser.add_argument("--inner_round", type=int, default=1)
-parser.add_argument("--exp_folder", type=str, default="out/test")
+parser.add_argument("--exp_folder", type=str, default="out/variation_exps")
 parser.add_argument("--pretrained_model_path", type=str, default="runwayml/stable-diffusion-v1-5")
 parser.add_argument("--is_half", type=bool, default=False)
 args = parser.parse_args()

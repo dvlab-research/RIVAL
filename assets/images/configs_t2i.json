@@ -1,0 +1,53 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": ", best quality, extremely detailed",
+    "neg_prompt": ", monochrome, lowres, bad anatomy, worst quality, low quality",
+    "image_exps": 
+    [
+        {
+            "prompt": "portrait, a robot in a sailor uniform posing for a photo",
+            "image_path": "07_vermeer.png",
+            "exp_name": "t2i_00_robot"
+        },
+        {
+            "prompt": "portrait, Elon Musk in a uniform posing for a photo",
+            "image_path": "07_vermeer.png",
+            "exp_name": "t2i_01_Musk"
+        },
+        {
+            "prompt": "portrait, a girl in a sailor uniform posing for a photo",
+            "image_path": "07_vermeer.png",
+            "exp_name": "t2i_02_girl"
+        },
+        {
+            "prompt": "a drawing of a Paris",
+            "image_path": "01_city.png",
+            "exp_name": "t2i_03_Paris"
+        },
+        {
+            "prompt": "a portrait of a doctor",
+            "image_path": "13_vangoh.png",
+            "exp_name": "t2i_04_doctor"
+        },
+        {
+            "prompt": "an oil painting of a vase on the table",
+            "image_path": "15_starry_night.jpg",
+            "exp_name": "t2i_05_paint"
+        },
+        {
+            "prompt": "a crown",
+            "image_path": "17_watercolor.png",
+            "exp_name": "t2i_06_crown"
+        },
+        {
+            "prompt": "a bear",
+            "image_path": "17_watercolor.png",
+            "exp_name": "t2i_07_bear"
+        },
+        {
+            "prompt": "illustration of a melting golden crown",
+            "image_path": "16_gold_flower.png",
+            "exp_name": "t2i_08_crown"
+        }
+    ]
+}

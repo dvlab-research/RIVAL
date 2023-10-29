@@ -3,14 +3,14 @@
     {
         "atten_frames": 2,
         "kqv": "kv",
-        "t_align": 600
+        "t_align": 500
     },
     "inference":
     {
         "invert_step": 50,
         "ddim_step": 50,
-        "cfg": 5,
-        "is_null_prompt": false,
+        "cfg": 7,
+        "is_null_prompt": true,
         "t_early": 600
     }
 }

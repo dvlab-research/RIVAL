@@ -9,7 +9,7 @@
     {
         "invert_step": 50,
         "ddim_step": 50,
-        "cfg": 5,
+        "cfg": 7,
         "is_null_prompt": false,
         "t_early": 600
     }
