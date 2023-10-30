@@ -1,0 +1,32 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": "",
+    "neg_prompt": "",
+    "image_exps": 
+    [
+        {
+            "prompt": "a dog",
+            "prompt_ori": "a lnyx",
+            "image_path": "00_lynx.png",
+            "exp_name": "editing_01_dog"
+        },
+        {
+            "prompt": "a cat",
+            "prompt_ori": "a lnyx",
+            "image_path": "00_lynx.png",
+            "exp_name": "editing_02_cat"
+        },
+        {
+            "prompt": "a photo of a cat",
+            "prompt_ori": "a photo of a dog",
+            "image_path": "08_corgi.jpg",
+            "exp_name": "editing_03_corgi"
+        },
+        {
+            "prompt": "a photo of a person, raising hand",
+            "prompt_ori": "a photo of a person",
+            "image_path": "09_person.png",
+            "exp_name": "editing_04_risehand"
+        }
+    ]
+}

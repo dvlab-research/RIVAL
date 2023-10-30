@@ -11,6 +11,9 @@ def new_forward(
 ):
     # Implement your new forward function here.
     # You can access the parameters of the original module as self.weight, etc.
+    if not hasattr(self, "editing_early_steps"):
+        self.editing_early_steps = 1000
+        
     if (hidden_states.shape[0] <= 2) or encoder_hidden_states is not None:
         # if hidden_states is with batch_size = 1, then we can use the original forward function:
         return self.ori_forward(
@@ -35,7 +38,7 @@ def new_forward(
         )
         self.init_step -= self.step_size
 
-        if self.init_step > 900:
+        if self.init_step > self.editing_early_steps:
             return self.ori_forward(
                 hidden_states,
                 encoder_hidden_states,

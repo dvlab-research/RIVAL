@@ -3,7 +3,7 @@
     {
         "atten_frames": 2,
         "kqv": "kv",
-        "t_align": 500
+        "t_align": 600
     },
     "inference":
     {

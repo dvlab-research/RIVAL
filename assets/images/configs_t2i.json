@@ -25,7 +25,7 @@
             "exp_name": "t2i_03_Paris"
         },
         {
-            "prompt": "a portrait of a doctor",
+            "prompt": "a self-portrait of a doctor",
             "image_path": "13_vangoh.png",
             "exp_name": "t2i_04_doctor"
         },
@@ -45,9 +45,9 @@
             "exp_name": "t2i_07_bear"
         },
         {
-            "prompt": "illustration of a melting golden crown",
+            "prompt": "a melting golden dog toy",
             "image_path": "16_gold_flower.png",
-            "exp_name": "t2i_08_crown"
+            "exp_name": "t2i_08_toy"
         }
     ]
 }

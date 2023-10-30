@@ -19,10 +19,12 @@ parser = argparse.ArgumentParser()
 # load the config.
 parser.add_argument("--inf_config", type=str, default="configs/rival_variation.json")
 parser.add_argument("--img_config", type=str, default="assets/images/configs_variation.json")
-parser.add_argument("--inner_round", type=int, default=1)
+parser.add_argument("--inner_round", type=int, default=1, help="number of images per reference")
 parser.add_argument("--exp_folder", type=str, default="out/variation_exps")
 parser.add_argument("--pretrained_model_path", type=str, default="runwayml/stable-diffusion-v1-5")
 parser.add_argument("--is_half", type=bool, default=False)
+parser.add_argument("--is_editing", type=bool, default=False)
+parser.add_argument("--editing_early_steps", type=int, default=1000)
 args = parser.parse_args()
 ic(args)
 
@@ -63,37 +65,39 @@ for module in ldm_stable.unet.modules():
         module.init_step = 1000
         module.step_size = module.init_step // cfgs.copy()["inference"]["ddim_step"]
         module.t_align = module.cfg["t_align"]
+        module.editing_early_steps = args.editing_early_steps
         module.forward = types.MethodType(new_forward, module)
         
 ldm_stable.enable_model_cpu_offload()
 ldm_stable.enable_xformers_memory_efficient_attention()
 
-logging.log(0, "without using xformers")
 inversion = Inversion(ldm_stable, GUIDANCE_SCALE, NUM_DDIM_STEPS, INVERT_STEPS)
-
-x_t_append, _ = utils.init_latent(None, ldm_stable, 512, 512, None, 1)
-x_t_append = x_t_append.unsqueeze(2).to(device)
-
 os.makedirs(os.path.join(args.exp_folder), exist_ok=True)
-
 
 with open(args.img_config) as f:
     cfg = json.load(f)
     image_exps = cfg["image_exps"]
     image_root = cfg["image_root"]
     prompt_postfix = cfg["prompt_postfix"]
+    neg_prompt = cfg["neg_prompt"]
     
-start=0
-for cfg_item in image_exps[start:]:
+for cfg_item in image_exps:
     exp_name = cfg_item['exp_name']
     prompt = cfg_item['prompt'] + prompt_postfix
+    
+    if args.is_editing:
+        prompt_ori = cfg_item['prompt_ori']
+        prompt_edit = cfg_item['prompt']
+        
     image_path = os.path.join(image_root, cfg_item['image_path'])
     prompts = [prompt]
     ic(prompt)
     
     if IS_NULL_PROMPT:
         prompt = ""
-    
+    elif args.is_editing:
+        prompt = prompt_ori
+        
     inversion.init_prompt(prompt)  
     image_gt = load_512(image_path)
     rec_, x_ts = inversion.ddim_inversion(image_gt, dtype=dtype)
@@ -104,17 +108,25 @@ for cfg_item in image_exps[start:]:
 
     if IS_NULL_PROMPT:
         prompts = ["", prompts[0]]
+        if args.is_editing:
+            prompts = ["", prompt_edit]
     else:
         prompts = [prompts[0], prompts[0]]
+        if args.is_editing:
+            prompts = [prompt_ori, prompt_edit]
+            
     for m in range(args.inner_round):
-        idx = torch.randperm(x_t.nelement()//4)
-        x_t_append_norm = x_t.view(1, 4, -1)[:, :, idx].view(x_t.size())
-        x_t_in = torch.cat([x_t, x_t_append_norm], dim=0)
+        if args.is_editing:
+            x_t_in = torch.cat([x_t, x_t], dim=0)
+        else:
+            idx = torch.randperm(x_t.nelement()//4)
+            x_t_append_norm = x_t.view(1, 4, -1)[:, :, idx].view(x_t.size())
+            x_t_in = torch.cat([x_t, x_t_append_norm], dim=0)
         
         with torch.no_grad():
             images = ldm_stable(
                 prompts,
-                negative_prompt=["", "monochrome, lowres, bad anatomy, worst quality, low quality"],
+                negative_prompt=["", neg_prompt],
                 generator=generator,
                 latents=x_t_in,
                 num_images_per_prompt=1,

@@ -10,7 +10,7 @@
         "invert_step": 50,
         "ddim_step": 50,
         "cfg": 7,
-        "is_null_prompt": false,
+        "is_null_prompt": true,
         "t_early": 600
     }
 }

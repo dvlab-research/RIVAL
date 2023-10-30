@@ -55,7 +55,7 @@
             "exp_name": "var_11_db"
         },
         {
-            "prompt": "a photo of a dog",
+            "prompt": "a photo of a dog lying on a sofa",
             "image_path": "18_db_dog.jpg",
             "exp_name": "var_18_db_dog"
         },
