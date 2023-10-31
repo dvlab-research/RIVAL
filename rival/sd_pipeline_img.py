@@ -53,6 +53,7 @@ class RIVALStableDiffusionPipeline(StableDiffusionPipeline):
         is_adain = True,
         chain = None,
         t_early = 0,
+        inpaint_mask = None,
     ):
         # 0. Default height and width to unet
         height = height or self.unet.config.sample_size * self.vae_scale_factor
@@ -141,7 +142,10 @@ class RIVALStableDiffusionPipeline(StableDiffusionPipeline):
 
                 if chain is not None:
                     latents[0] = chain[-i-1] # just replace the cond_latent 
-                
+                    
+                if inpaint_mask is not None:
+                    latents[1][:, inpaint_mask != 0] = latents[0][:, inpaint_mask != 0]
+                    
                 # call the callback, if provided
                 if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                     progress_bar.update()
@@ -176,6 +180,4 @@ class RIVALStableDiffusionPipeline(StableDiffusionPipeline):
             return (image, has_nsfw_concept)
 
         return StableDiffusionPipelineOutput(images=image, nsfw_content_detected=has_nsfw_concept)
-
-
 

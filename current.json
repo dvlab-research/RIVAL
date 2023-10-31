@@ -1,7 +1,7 @@
 {
     "self_attn": {
         "atten_frames": 2,
-        "kqv": "kv",
+
         "t_align": 600
     },
     "inference": {

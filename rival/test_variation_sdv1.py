@@ -5,16 +5,19 @@ import json
 import argparse
 import os
 import torch
-import logging
 import utils
 import types
+from PIL import Image
 from diffusers import DDIMScheduler
 from ddim_inversion import Inversion, load_512
 from diffusers.models.attention import CrossAttention
 from sd_pipeline_img import RIVALStableDiffusionPipeline
 from attention_forward import new_forward
 from icecream import ic
+from torchvision import transforms
 
+convert_tensor = transforms.ToTensor()
+    
 parser = argparse.ArgumentParser()
 # load the config.
 parser.add_argument("--inf_config", type=str, default="configs/rival_variation.json")
@@ -92,7 +95,7 @@ for cfg_item in image_exps:
     image_path = os.path.join(image_root, cfg_item['image_path'])
     prompts = [prompt]
     ic(prompt)
-    
+        
     if IS_NULL_PROMPT:
         prompt = ""
     elif args.is_editing:
@@ -115,6 +118,16 @@ for cfg_item in image_exps:
         if args.is_editing:
             prompts = [prompt_ori, prompt_edit]
             
+    # check whether use inpainting:
+    mask = None
+    if 'mask_path' in cfg_item:
+        mask_path = os.path.join(image_root, cfg_item['mask_path'])
+        mask = Image.open(mask_path).convert("L")
+        mask = mask.resize((64, 64), resample=Image.LANCZOS)
+        # convert to PIL image to binary mode
+        mask = mask.point(lambda x: 0 if x < 128 else 255, '1')
+        mask = convert_tensor(mask)[0]
+        
     for m in range(args.inner_round):
         if args.is_editing:
             x_t_in = torch.cat([x_t, x_t], dim=0)
@@ -122,6 +135,13 @@ for cfg_item in image_exps:
             idx = torch.randperm(x_t.nelement()//4)
             x_t_append_norm = x_t.view(1, 4, -1)[:, :, idx].view(x_t.size())
             x_t_in = torch.cat([x_t, x_t_append_norm], dim=0)
+        
+        # for inpainting.
+        if mask is not None:
+            masked_latent = x_t.clone()[:, :, mask == 0].view(1, 4, -1) 
+            idx = torch.randperm(masked_latent.nelement()//4)
+            masked_latent = masked_latent[:, :, idx].view(masked_latent.size())
+            x_t_in[1, :, mask == 0] = masked_latent
         
         with torch.no_grad():
             images = ldm_stable(
@@ -136,6 +156,7 @@ for cfg_item in image_exps:
                 chain = x_ts,
                 t_early = T_EARLY,
                 output_type = 'np',
+                inpaint_mask = mask,
             ).images
         
         utils.save_images([images[1]*255], name=png_name[:-4] + f"_{m}.png", offset_ratio=0.0)
