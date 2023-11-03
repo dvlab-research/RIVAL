@@ -1,57 +1,87 @@
 # <img src="assets/favicon.png" width="4%"> RIVAL
-Real-World Image Variation by Aligning Diffusion Inversion Chain
+**[NeuIPS 2023 Spotlight]** Official Implementation of paper *Real-World Image Variation by Aligning Diffusion Inversion Chain*
 [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
-
-## Project MileStones (currently strictly follow the timeline here)
-- [ ] [20231028] Code release for the image variations and text-to-image
-- [ ] [20231030] Code release for ControlNet inference, image editing
-- [ ] [20231031] Code release for other applications (like +dreambooth), user manual
-
-## Applications
-### Image Variations
-![](assets/compare.png)
-> With a reference image, RIVAL generate images with the same semantic contents and style, without any optimization.
-
-### Free-Form Image-Conditioned Generation
-![](assets/free-form.png)
-> With a reference image, we can input different prompts to control the generation, like a tunning-free style transfer.
 
 ![](assets/free_generation.png)
 
+## Project MileStones
+- [x] [20231028] Code release for the image variations and text-to-image
+- [x] [20231030] Code release for ControlNet inference, image editing
+- [x] [20231031] Code release for other applications (like +inpainting), user manual
+- [ ] [202311xx] Code release for SDXL, and other possible applications
+
+## Applications and User Manual
+We provide several examples with five applications, variations, T2I, editing, inpainting, and ControlNet.
+#### Enviornment setting:
+```bash
+conda create -n rival python=3.8
+conda activate rival
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install -r requirements.txt
+```
+#### The usage of hyper-params
+All applications has a config file for inference. Following shows a brief explanation for some key parameters.
+```json
+{
+    "self_attn":
+    {
+        "atten_frames": 2,
+        "t_align": 600 # [0-1000], smaller means closer to the original image (semantically).
+    },
+    "inference":
+    {
+        "invert_step": 50,
+        "ddim_step": 50,
+        "cfg": 7,
+        "is_null_prompt": true, # whether use empty prompt "" in inversion.
+        "t_early": 600 # [0-1000], smaller means closer to the original image (low-level color distribution).
+    }
+}
+```
+
+## Image Variations
+![](assets/variation.png)
+With a reference image, RIVAL generate images with the same semantic contents and style, without any optimization.
+```bash
+bash scripts/rival_variation_test.sh
+```
+
+## Editing-based applications
+![](assets/editing.png)
+### Image Editing
+Users can modify the `editing_early_steps` in this script to contorl the editing strength.
+```bash
+bash scripts/rival_editing_test.sh
+```
+
 ### Customized Concept Editing
-![](assets/dreambooth.png)
-> With RIVAL, we can customize both object concept and style concept that is hard be described.
+[under-construction] With RIVAL, we can customize both object concept and style concept that is hard be described.
+```bash
+bash scripts/rival_custom_test.sh
+```
 
 ### Example-Based Inpainting
-![](assets/inpaint.png)
+Please note that its application scope is indeed limited (as shown in the paper, the example can only come from itself).
+```bash
+bash scripts/rival_inpainting_test.sh
+```
 
-## Method
-![](assets/framework.png)
-Our motivation is based on the following observations: <br />
-<li> Vanilla generation process: sample latent from standard Gaussian distribution, follow the <b
-    style="color: #00AA99">denoising chain</b> to get image
-<br />
-<li> Diffusion models has a strong ability to invert a real-world image into latent space, then
-reconstruct it using the <b style="color: #cba320">inversion denoising chain</b>.
-<br />
-<li> The inversion space cannot guarantee as the standard Gaussian, leading to a distribution gap in
-latent during denoising steps.
-<br />
-<li> Distribution Gap causes the domain gap in generated images.
-<br />
-<b> Our Solution: Align two denoising chains to reduce the distribution gap. </b>
-<br />
-<br />
+## Generation-based applications
+![](assets/transfer.png)
+### Text-Driven Image Generation
+```bash
+bash scripts/rival_t2i_test.sh
+```
 
->To address this distribution gap problem for generating image variations, we propose an inference pipeline
-          called Real-world Image Variation by Alignment (RIVAL). RIVAL is a tunning-free approach that reduces the
-          domain gap between the generated and real-world images by aligning the denoising chain with the real-image
-          inversion chain. Our method comprises two key components: (i) a cross-image self-attention injection that
-          enables cross-image feature interaction in the variation denoising chain, guided by the hidden states from the
-          inversion chain, and (ii) a step-wise latent normalization that aligns the latent distribution with the
-          inverted latent in early denoising steps. Notably, this modified inference process requires no training and is
-          suitable for arbitrary image input.
+### Generation with controlNet
+The config example is given in `assets/images/configs_controlnet.json`, you may enable more modalities by editing the python script.
+```bash
+bash scripts/rival_controlnet_test.sh
+```
 
+## Motivation and Method
+![](assets/method.png)
+![](assets/method_2.png)
 
 ## BibTeX
 ```bibtex

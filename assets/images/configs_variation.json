@@ -1,0 +1,83 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": ", best quality, extremely detailed",
+    "neg_prompt": ", monochrome, lowres, bad anatomy, worst quality, low quality",
+    "image_exps": 
+    [
+        {
+            "prompt": "a lynx is sitting in the grass",
+            "image_path": "00_lynx.png",
+            "exp_name": "var_00_lynx"
+        },
+        {
+            "prompt": "an old black and white drawing of a city",
+            "image_path": "01_city.png",
+            "exp_name": "var_01_city"
+        },
+        {
+            "prompt": "a building with a blue and white striped awning",
+            "image_path": "02_blue.png",
+            "exp_name": "var_02_blue"
+        },
+        {
+            "prompt": "an old movie theater with a marquee on it",
+            "image_path": "03_theater.png",
+            "exp_name": "var_03_theater"
+        },
+        {
+            "prompt": "a theater marquee lit up at night on a city street",
+            "image_path": "04_theater.png",
+            "exp_name": "var_04_theater"
+        },
+        {
+            "prompt": "a pink building",
+            "image_path": "05_pink.png",
+            "exp_name": "var_05_pink"
+        },
+        {
+            "prompt": "a gril in a sailor uniform posing for a portrait",
+            "image_path": "06_girl.png",
+            "exp_name": "var_06_girl"
+        },
+        {
+            "prompt": "a portrait of a women",
+            "image_path": "07_vermeer.png",
+            "exp_name": "var_07_vermeer"
+        },
+        {
+            "prompt": "a photo of backback in the wild",
+            "image_path": "10_db_bag.jpg",
+            "exp_name": "var_10_db"
+        },
+        {
+            "prompt": "a photo of backback in the wild",
+            "image_path": "11_db_bag.jpg",
+            "exp_name": "var_11_db"
+        },
+        {
+            "prompt": "a photo of a dog lying on a sofa",
+            "image_path": "18_db_dog.jpg",
+            "exp_name": "var_18_db_dog"
+        },
+        {
+            "prompt": "a photo of a dog",
+            "image_path": "19_db_dog.jpg",
+            "exp_name": "var_19_db_dog"
+        },
+        {
+            "prompt": "a photo of a shiny sneaker",
+            "image_path": "20_db_sneaker.jpg",
+            "exp_name": "var_20_db_sneaker"
+        },
+        {
+            "prompt": "a photo of a red vase",
+            "image_path": "21_db_vase.jpg",
+            "exp_name": "var_21_db_vase"
+        },
+        {
+            "prompt": "a photo of a cat",
+            "image_path": "22_db_cat.jpg",
+            "exp_name": "var_22_db_cat"
+        }
+    ]
+}

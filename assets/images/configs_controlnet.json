@@ -1,0 +1,36 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": ", best quality, extremely detailed",
+    "neg_prompt": ", monochrome, lowres, bad anatomy, worst quality, low quality",
+    "image_exps": 
+    [
+        {
+            "mode": "canny",
+            "prompt": "a furry cat shape toy",
+            "image_path": "22_db_cat.jpg",
+            "control_image_path": "../contorlnet_test/canny_preprocess.png",
+            "exp_name": "controlnet_01_canny_toy"
+        },
+        {
+            "mode": "depth",
+            "prompt": "a robot",
+            "image_path": "24_doors.png",
+            "control_image_path": "../contorlnet_test/depth_map.png",
+            "exp_name": "controlnet_02_depth_robot"
+        },
+        {
+            "mode": "seg",
+            "prompt": "a photo of a big house",
+            "image_path": "05_pink.png",
+            "control_image_path": "../contorlnet_test/seg_map.png",
+            "exp_name": "controlnet_03_seg_house"
+        },
+        {
+            "mode": "openpose",
+            "prompt": "a portrait of the BatMan",
+            "image_path": "07_vermeer.png",
+            "control_image_path": "../contorlnet_test/openpose.png",
+            "exp_name": "controlnet_04_pose_batman"
+        }
+    ]
+}

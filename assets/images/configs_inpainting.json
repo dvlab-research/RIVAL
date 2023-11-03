@@ -1,0 +1,20 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": ", best quality, extremely detailed",
+    "neg_prompt": "",
+    "image_exps": 
+    [
+        {
+            "prompt": "a lynx is sitting in the grass",
+            "image_path": "00_lynx.png",
+            "mask_path": "../mask_inpaint/mask_lynx.png",
+            "exp_name": "inpaint_00_lynx"
+        },
+        {
+            "prompt": "a building",
+            "image_path": "05_pink.png",
+            "mask_path": "../mask_inpaint/mask_pink_building.png",
+            "exp_name": "inpaint_01_pink"
+        }
+    ]
+}
