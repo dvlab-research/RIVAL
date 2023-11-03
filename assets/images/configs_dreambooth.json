@@ -1,0 +1,20 @@
+{
+    "image_root": "assets/images/references",
+    "prompt_postfix": "",
+    "neg_prompt": ", monochrome, lowres, bad anatomy, worst quality, low quality",
+    "image_exps": 
+    [
+        {
+            "prompt": "a portrait painting of sks girl toy",
+            "prompt_ori": "",
+            "image_path": "07_vermeer.png",
+            "exp_name": "sks_00_paint"
+        },
+        {
+            "prompt": "a photo of an sks bag",
+            "prompt_ori": "",
+            "image_path": "25_sks.png",
+            "exp_name": "sks_01_bag"
+        }
+    ]
+}

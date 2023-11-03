@@ -16,6 +16,7 @@ We provide several examples with five applications, variations, T2I, editing, in
 ```bash
 conda create -n rival python=3.8
 conda activate rival
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install -r requirements.txt
 ```
 #### The usage of hyper-params
