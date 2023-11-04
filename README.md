@@ -1,6 +1,6 @@
 # <img src="assets/favicon.png" width="4%"> RIVAL
 **[NeuIPS 2023 Spotlight]** Official Implementation of paper *Real-World Image Variation by Aligning Diffusion Inversion Chain*
-[ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
+[[PDF](assets/Zhang_NeurIPS_2023_RIVAL_Cam_ready_paper.pdf)] [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
 
 ![](assets/free_generation.png)
 
@@ -13,11 +13,13 @@
 ## Applications and User Manual
 We provide several examples with five applications, variations, T2I, editing, inpainting, and ControlNet.
 #### Enviornment setting:
+Please raise an issue/PR if you have problems in env setting.
 ```bash
-conda create -n rival python=3.8
+conda create -n rival python=3.9.16
 conda activate rival
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install -r requirements.txt
+conda install xformers -c xformers
 ```
 #### The usage of hyper-params
 All applications has a config file for inference. Following shows a brief explanation for some key parameters.
@@ -38,6 +40,16 @@ All applications has a config file for inference. Following shows a brief explan
     }
 }
 ```
+In test python file (e.g., rival/test_variation_sdv1.py):
+
+- `--inf_config`: Inference config file. default="configs/rival_variation.json"
+- `--img_config`: Data config file. default="assets/images/configs_variation.json"
+- `--inner_round`: How many images you want to generate per reference. default=1
+- `--exp_folder`: Output folder. default="out/variation_exps"
+- `--pretrained_model_path`: SD model path. default="runwayml/stable-diffusion-v1-5"
+- `--is_half`: Whether use fp16.  default=False
+- `--is_editing`: If set True, we do not permute inverted latent. default=False
+- `--editing_early_steps`: For t > step, do normal inference in self-attention. default=1000
 
 ## Image Variations
 ![](assets/variation.png)
