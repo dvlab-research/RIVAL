@@ -1,6 +1,6 @@
 # <img src="assets/favicon.png" width="4%"> RIVAL
 **[NeuIPS 2023 Spotlight]** Official Implementation of paper *Real-World Image Variation by Aligning Diffusion Inversion Chain*
-[[PDF](assets/Zhang_NeurIPS_2023_RIVAL_Cam_ready_paper.pdf)] [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
+[[PDF](assets/rival_paper.pdf)] [ [arXiv](https://arxiv.org/abs/2305.18729) ] [ [Project Page](https://rival-diff.github.io/) ]
 
 ![](assets/free_generation.png)
 
