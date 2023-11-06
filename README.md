@@ -67,7 +67,7 @@ bash scripts/rival_editing_test.sh
 ```
 
 ### Customized Concept Editing
-[under-construction] With RIVAL, we can customize both object concept and style concept that is hard be describe.
+With RIVAL, we can customize both object concept and style concept that is hard be describe.
 ```bash
 bash scripts/rival_custom_test.sh
 ```
