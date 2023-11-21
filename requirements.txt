@@ -1,5 +1,5 @@
 diffusers[torch]==0.14.0
-transformer==4.31.0
+transformers==4.31.0
 bitsandbytes==0.35.4
 decord==0.6.0
 accelerate
