@@ -141,7 +141,7 @@ class RIVALStableDiffusionPipeline(StableDiffusionPipeline):
                 latents = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs).prev_sample
 
                 if chain is not None:
-                    latents[0] = chain[-i-1] # just replace the cond_latent 
+                    latents[0] = chain[-i-2] # just replace the cond_latent 
                     
                 if inpaint_mask is not None:
                     latents[1][:, inpaint_mask != 0] = latents[0][:, inpaint_mask != 0]

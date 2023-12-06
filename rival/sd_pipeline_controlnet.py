@@ -171,7 +171,7 @@ class RIVALStableDiffusionControlNetPipeline(StableDiffusionControlNetPipeline):
                 latents = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs).prev_sample
                 
                 if chain is not None:
-                    latents[0] = chain[-i-1] # just replace the cond_latent 
+                    latents[0] = chain[-i-2] # just replace the cond_latent 
                     
                 # call the callback, if provided
                 if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
