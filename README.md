@@ -69,7 +69,7 @@ bash scripts/rival_editing_test.sh
 ### Customized Concept Editing
 With RIVAL, we can customize both object concept and style concept that is hard be describe.
 ```bash
-bash scripts/rival_custom_test.sh
+bash scripts/rival_dreambooth_test.sh
 ```
 
 ### Example-Based Inpainting
